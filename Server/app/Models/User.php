@@ -30,4 +30,9 @@ class User extends Authenticatable
         'offline' => 2
     ];
     public const UserToken = 'UserToken';
+    protected $hidden = [
+        'password',
+        'list_friend',
+        'remember_token'
+    ];
 }

@@ -59,4 +59,9 @@ class AuthController extends Controller
             'token' => $token
         ]);
     }
+    public function getUser(Request $request)
+    {
+        $user = auth()->user();
+        return Helper::SuccessWithData($user);
+    }
 }
