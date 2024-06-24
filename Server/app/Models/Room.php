@@ -12,6 +12,5 @@ class Room extends Model
     protected $fillable = [
         'firstUserId',
         'sencondUserId',
-        'chatId'
     ];
 }
