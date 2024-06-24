@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Events\SendMessage;
 use App\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomRequest;
+use App\Jobs\SendMessageListen;
 use App\Models\Room;
 use App\Models\User;
-
+use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
@@ -23,7 +25,16 @@ class ChatController extends Controller
             return Helper::SuccessWithData($room);
         }
     }
-    public function chatMessage()
+    public function chatMessage(Request $request)
     {
+        try {
+
+            event(new SendMessage(
+                $request->room_id,
+                $request->message
+            ));
+        } catch (\Throwable $error) {
+            return Helper::Error([], 400, $error->getMessage());
+        }
     }
 }
