@@ -29,10 +29,10 @@ class ChatController extends Controller
     {
         try {
 
-            event(new SendMessage(
+            broadcast(new SendMessage(
                 $request->room_id,
                 $request->message
-            ));
+            ))->toOthers();
         } catch (\Throwable $error) {
             return Helper::Error([], 400, $error->getMessage());
         }

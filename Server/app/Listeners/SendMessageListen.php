@@ -24,6 +24,7 @@ class SendMessageListen
      */
     public function handle(SendMessage $event)
     {
+        Log::info($event->message);
         return Helper::SuccessWithData($event);
     }
 }
