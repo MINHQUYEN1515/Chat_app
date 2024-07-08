@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:client/service/local_notification.dart';
+import 'package:client/utils/logger.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 
@@ -28,13 +29,13 @@ class FireBaseService {
         alert: true, badge: true, sound: true);
     switch (notificationSettings.authorizationStatus) {
       case AuthorizationStatus.authorized:
-        print("LOG>>:granted permission");
+        AppLog.d("LOG>>:granted permission");
         break;
       case AuthorizationStatus.denied:
-        print("LOG>>:granted provisional permission");
+        AppLog.e("LOG>>:granted provisional permission");
         break;
       default:
-        print("LOG>>:not accept permission");
+        AppLog.e("LOG>>:not accept permission");
         break;
     }
   }
@@ -43,9 +44,9 @@ class FireBaseService {
     String? token = await _firebaseMessaging.getToken();
     if (token != null) {
       _tokenFireBase = token;
-      print("LOG>>:Token firebase: $_tokenFireBase");
+      AppLog.d("LOG>>:Token firebase: $_tokenFireBase");
     } else {
-      print("LOG>>:Get token failed");
+      AppLog.d("LOG>>:Get token failed");
     }
   }
 
@@ -59,7 +60,7 @@ class FireBaseService {
       });
     }
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print("LOG>>:$message.data");
+      AppLog.d("LOG>>:$message.data");
     });
   }
 

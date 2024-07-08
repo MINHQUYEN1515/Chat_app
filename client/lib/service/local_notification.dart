@@ -1,3 +1,4 @@
+import 'package:client/utils/logger.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotification {
@@ -19,10 +20,10 @@ class LocalNotification {
         onDidReceiveNotificationResponse: (NotificationResponse notification) {
       switch (notification.notificationResponseType) {
         case NotificationResponseType.selectedNotification:
-          print("LOG>>:------------------ selectedNotification");
+          AppLog.d("LOG>>:------------------ selectedNotification");
           break;
         case NotificationResponseType.selectedNotificationAction:
-          print("LOG>>:------------------Click  action notification");
+          AppLog.d("LOG>>:------------------Click  action notification");
           break;
       }
     });
@@ -53,7 +54,7 @@ class LocalNotification {
 
   static void onDidReceiveLocalNotification(
       int? id, String? title, String? body, String? payload) async {
-    print(
+    AppLog.i(
         '------------------- onDidReceiveLocalNotification -------------- $title');
   }
 }
